@@ -10,3 +10,14 @@ module.exports = {
   },
 };
 
+// /** @type {import("ts-jest").JestConfigWithTsJest} */
+// module.exports = {
+//   moduleNameMapper: {
+//     "^/(.*)$": "<rootDir>/$1",
+//   },
+//   testEnvironment: "node",
+//   transform: {
+//     "\\.ts$": ["ts-jest", { useESM: true }]
+//   },
+//   transformIgnorePatterns: ['<rootDir>/node_modules/'],
+// };

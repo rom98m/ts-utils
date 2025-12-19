@@ -1,24 +1,42 @@
 {
-  "name": "utils",
+  "name": "@rom98m/utils",
   "version": "1.0.0",
-  "description": "Various JS/TS utils",
-  "main": "index.ts",
+  "description": "Various TS utils",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"],
   "scripts": {
+    "build": "rm -fr dist && tsc",
     "test": "jest"
   },
   "keywords": [
-    "random",
     "utils",
+    "random",
     "format",
     "string",
     "async",
     "batch"
   ],
   "author": "Roman Melnyk <https://melnyk.site>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rom98m/ts-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rom98m/ts-utils/issues",
+    "email": "email.rom.melnyk@gmail.com"
+  },
   "license": "UNLICENSED",
   "devDependencies": {
-    "@jest/globals": "^30.2.0",
-    "jest": "^30.2.0",
-    "ts-jest": "^29.4.6"
+    "@jest/globals": "30.2.0",
+    "jest": "30.2.0",
+    "ts-jest": "29.4.6"
   }
 }
