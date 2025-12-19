@@ -14,7 +14,9 @@
   "files": ["dist"],
   "scripts": {
     "build": "rm -fr dist && tsc",
-    "test": "jest"
+    "test:win:cmd": "npm run build && node --experimental-vm-modules node_modules/.bin/jest.cmd",
+    "test:win:ps": "npm run build && node --experimental-vm-modules node_modules/.bin/jest.ps1",
+    "test:linux": "npm run build && node --experimental-vm-modules node_modules/.bin/jest"
   },
   "keywords": [
     "utils",

@@ -11,7 +11,11 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
+    "allowJs": true,
+    "paths": {
+      // Resolve modules imported in `tests/`
+      "@rom98m/utils": ["./dist/index.d.ts"]
+    },
   },
   "files": ["src/index.ts"],
-  // "include": ["src"]
 }

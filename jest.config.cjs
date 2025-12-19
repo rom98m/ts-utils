@@ -7,7 +7,12 @@ module.exports = {
   testEnvironment: "node",
   transform: {
     ...tsJestTransformCfg,
+    "\\.(t|j)s$": ["ts-jest", { useESM: true }]
   },
+  moduleNameMapper: {
+    "^@rom98m/utils$": "<rootDir>/dist/index.js",
+    "^/$": "<rootDir>/dist/index.js",
+  }
 };
 
 // /** @type {import("ts-jest").JestConfigWithTsJest} */
