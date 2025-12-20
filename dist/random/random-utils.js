@@ -10,15 +10,14 @@ export function random(from, to) {
         to = from;
         from = 0;
     }
-    from = Math.min(from, to);
-    to = Math.max(from, to);
+    [from, to] = [Math.min(from, to), Math.max(from, to)];
     return Math.floor(Math.random() * (to - from)) + from;
 }
 /**
- * Picks a random value from given array.
+ * Picks a random value from given array. Works against string as well, picking random character.
  *
- * @param {T[]} array
- * @returns {T}
+ * @param {T[] | string} array
+ * @returns {T | string}
  */
 export function pickRandom(array) {
     return array[random(array.length)];
@@ -26,7 +25,7 @@ export function pickRandom(array) {
 /**
  * Return `true` with given % of probability.
  *
- * @param {number} probability Probability percentage (0..100)
+ * @param {number} probability Probability percentage (0..100).
  * @returns {boolean}
  */
 export function withProbability(probability) {

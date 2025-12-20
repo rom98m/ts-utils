@@ -10,18 +10,17 @@ export function random(from: number, to?: number): number {
     to = from
     from = 0
   }
-  from = Math.min(from, to)
-  to = Math.max(from, to)
+  [from, to] = [Math.min(from, to), Math.max(from, to)]
 
   return Math.floor(Math.random() * (to - from)) + from
 }
 
 
 /**
- * Picks a random value from given array.
+ * Picks a random value from given array. Works against string as well, picking random character.
  *
- * @param {T[]} array
- * @returns {T}
+ * @param {T[] | string} array
+ * @returns {T | string}
  */
 export function pickRandom<T>(array: T[] | string): typeof array extends T[] ? T : string {
   return array[random(array.length)] as typeof array extends T[] ? T : string
@@ -31,7 +30,7 @@ export function pickRandom<T>(array: T[] | string): typeof array extends T[] ? T
 /**
  * Return `true` with given % of probability.
  *
- * @param {number} probability Probability percentage (0..100)
+ * @param {number} probability Probability percentage (0..100).
  * @returns {boolean}
  */
 export function withProbability(probability: number): boolean {
@@ -43,7 +42,7 @@ export const dictionary = {
   englishLower: "abcdefghijklmnopqrstuvwxyz",
   englishUpper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
   numbers: "1234567890",
-} as const
+}
 
 
 /**
