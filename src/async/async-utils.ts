@@ -1,45 +1,51 @@
-import { AsyncResult, BatchTask } from "./types"
+type AsyncResult<T> = {
+  error: null | string | object
+  result: T
+  batch: number
+  task: number
+}
+
+
+type BatchTask<T> = () => Promise<AsyncResult<T>>
 
 
 export class AsyncBatch<T = any> {
-  private readonly batchSize: number
-  private readonly taskTimeout: number
-  private readonly batchTimeout: number
+  public readonly batchSize: number
+  private readonly batches: BatchTask<T>[][] = [[]]
+  private _isRunning = false
+  private _isFinished = false
+  private readonly _results: AsyncResult<T>[][] = []
 
-  private currentBatch: BatchTask<T>[] = []
-  private readonly batches: BatchTask<T>[][] = [this.currentBatch]
 
-
-  constructor({
-    batchSize = 10,
-    taskTimeout = Number.POSITIVE_INFINITY,
-    batchTimeout = Number.POSITIVE_INFINITY,
-  }: {
-    batchSize?: number,
-    taskTimeout?: number,
-    batchTimeout?: number,
-  } = {}) {
+  constructor({ batchSize = 10 }: { batchSize?: number } = {}) {
     if (batchSize <= 0) throw new RangeError("The `batchSize` value must be positive integer")
 
     this.batchSize = batchSize
-    this.taskTimeout = taskTimeout
-    this.batchTimeout = batchTimeout
   }
 
 
+  public get isRunning() { return this._isRunning }
+  public get isFinished() { return this._isFinished }
+  public get results() { return this._results }
+
+
   add(...tasks: Array<() => Promise<T>>) {
+    if (this._isRunning || this._isFinished) {
+      throw new Error("Cannot add tast to a running or finished batch")
+    }
+
     tasks.forEach(task => {
-      if (this.currentBatch.length >= this.batchSize) {
-        this.currentBatch = []
-        this.batches.push(this.currentBatch)
+      let lastBatch = this.batches[this.batches.length - 1]
+      if (lastBatch.length >= this.batchSize) {
+        lastBatch = []
+        this.batches.push(lastBatch)
       }
 
       const counter = {
         batch: this.batches.length - 1,
-        task: this.currentBatch.length, // `push` takes place after this
-        batchSize: this.batchSize,
+        task: lastBatch.length, // `push` takes place after this
       }
-      this.currentBatch.push(
+      lastBatch.push(
         () => task()
           .then(r => ({ error: null, result: r, ...counter }))
           .catch(e => ({ error: e, result: null as T, ...counter }))
@@ -49,14 +55,18 @@ export class AsyncBatch<T = any> {
 
 
   async run(): Promise<AsyncResult<T>[][]> {
-    const results: AsyncResult<T>[][] = []
+    if (this._isRunning || this._isFinished) return Promise.resolve(this._results)
+    this._isRunning = true
 
     for (const batch of this.batches) {
-      results.push(
+      this._results.push(
         await Promise.all(batch.map(task => task()))
       )
     }
 
-    return results
+    this._isRunning = false
+    this._isFinished = true
+
+    return this._results
   }
 }
