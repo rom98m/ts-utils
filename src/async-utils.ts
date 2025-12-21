@@ -1,5 +1,5 @@
 type AsyncResult<T> = {
-  error: null | string | object
+  error: undefined | string | object
   result: T
   batch: number
   task: number
@@ -14,6 +14,7 @@ export class AsyncBatch<T = any> {
   private readonly batches: BatchTask<T>[][] = [[]]
   private _isRunning = false
   private _isFinished = false
+  private _totalTasks = 0
   private readonly _results: AsyncResult<T>[][] = []
 
 
@@ -26,6 +27,7 @@ export class AsyncBatch<T = any> {
 
   public get isRunning() { return this._isRunning }
   public get isFinished() { return this._isFinished }
+  public get totalTasks() { return this._totalTasks }
   public get results() { return this._results }
 
 
@@ -43,30 +45,40 @@ export class AsyncBatch<T = any> {
 
       const counter = {
         batch: this.batches.length - 1,
-        task: lastBatch.length, // `push` takes place after this
+        task: lastBatch.length, // `push` takes place after this, hence task no. should be +1'ed
       }
       lastBatch.push(
         () => task()
-          .then(r => ({ error: null, result: r, ...counter }))
-          .catch(e => ({ error: e, result: null as T, ...counter }))
+          .then(r => ({ error: undefined, result: r, ...counter }))
+          .catch(e => ({ error: e, result: undefined as T, ...counter }))
       )
+      this._totalTasks++
     })
+
+    return this
   }
 
 
-  async run(): Promise<AsyncResult<T>[][]> {
-    if (this._isRunning || this._isFinished) return Promise.resolve(this._results)
+  run(): Promise<AsyncResult<T>[][]> {
+    if (this._isRunning || this._isFinished) {
+      throw new Error(`Cannot re-run the ${this._isRunning ? "running" : "finished"} batch`)
+    }
     this._isRunning = true
 
-    for (const batch of this.batches) {
-      this._results.push(
-        await Promise.all(batch.map(task => task()))
-      )
-    }
+    // This wrapper allows using simple `async/awiat` approach AND fail fast in case of running/finished batch.
+    // The `async run()` _always_ rerturn the Promise which fails by aforementioned conditions.
+    // The `run()` can fail fast _before_ returnign any Promise.
+    return (async () => {
+      for (const batch of this.batches) {
+        this._results.push(
+          await Promise.all(batch.map(task => task()))
+        )
+      }
 
-    this._isRunning = false
-    this._isFinished = true
+      this._isRunning = false
+      this._isFinished = true
 
-    return this._results
+      return this._results
+    })()
   }
 }
