@@ -1,5 +1,5 @@
 /**
- * Return an iterable that runs given amount of times.
+ * Return an iterable that runs given number of times.
  * Use for:
  * ```
  * for (const x of times(5)) {
