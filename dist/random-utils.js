@@ -2,7 +2,7 @@
  * Returns random int from the interval `[min(from, to) .. max(from, to))`.
  *
  * @param {number} from
- * @param {number?} to Optional. If omitted consider `random(0, from)`.
+ * @param {number?} [to] Optional. If omitted consider `random(0, from)`.
  * @returns {number}
  */
 export function random(from, to) {
@@ -16,11 +16,11 @@ export function random(from, to) {
 /**
  * Picks a random value from given array. Works against string as well, picking random character.
  *
- * @param {T[] | string} array
+ * @param {T[] | string} arrayLike
  * @returns {T | string}
  */
-export function pickRandom(array) {
-    return array[random(array.length)];
+export function pickRandom(arrayLike) {
+    return arrayLike[random(arrayLike.length)];
 }
 /**
  * Return `true` with given % of probability.
@@ -40,8 +40,8 @@ export const dictionary = {
  * Generates random string of given length.
  *
  * @param {number} length
- * @param {string?} chars Optional. Define the chars dictionary for generation.
-*                         If omitted, lower English (`a`..`z`) letter are used.
+ * @param {string?} [chars] Optional. Define the chars dictionary for generation.
+*                           If omitted, lower English (`a`..`z`) letter are used.
  * @returns {string}
  */
 export function randomString(length, chars = dictionary.englishLower) {

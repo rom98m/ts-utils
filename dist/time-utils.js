@@ -2,7 +2,7 @@
  * Returns a Promise which resolves after given time.
  *
  * @param {number} ms Time (milliseconds).
- * @returns
+ * @returns {Promise<void>}
  */
 export function wait(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));

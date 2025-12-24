@@ -2,7 +2,7 @@
  * Returns a Promise which resolves after given time.
  *
  * @param {number} ms Time (milliseconds).
- * @returns
+ * @returns {Promise<void>}
  */
 export declare function wait(ms: number): Promise<void>;
 /**

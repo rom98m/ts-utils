@@ -2,17 +2,17 @@
  * Returns random int from the interval `[min(from, to) .. max(from, to))`.
  *
  * @param {number} from
- * @param {number?} to Optional. If omitted consider `random(0, from)`.
+ * @param {number?} [to] Optional. If omitted consider `random(0, from)`.
  * @returns {number}
  */
 export declare function random(from: number, to?: number): number;
 /**
  * Picks a random value from given array. Works against string as well, picking random character.
  *
- * @param {T[] | string} array
+ * @param {T[] | string} arrayLike
  * @returns {T | string}
  */
-export declare function pickRandom<T>(array: T[] | string): typeof array extends T[] ? T : string;
+export declare function pickRandom<T>(arrayLike: T[] | string): typeof arrayLike extends T[] ? T : string;
 /**
  * Return `true` with given % of probability.
  *
@@ -29,8 +29,8 @@ export declare const dictionary: {
  * Generates random string of given length.
  *
  * @param {number} length
- * @param {string?} chars Optional. Define the chars dictionary for generation.
-*                         If omitted, lower English (`a`..`z`) letter are used.
+ * @param {string?} [chars] Optional. Define the chars dictionary for generation.
+*                           If omitted, lower English (`a`..`z`) letter are used.
  * @returns {string}
  */
 export declare function randomString(length: number, chars?: string): string;

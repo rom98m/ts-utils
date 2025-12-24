@@ -18,8 +18,8 @@ export class AsyncBatch {
     /**
      * Create a new container for async tasks.
      *
-     * @param {object?} param Configuration of the task container.
-     * @param {number} param.batchSize The size of the batch (number of task to run simultaneously).
+     * @param {object?} [param={}] Configuration of the task container.
+     * @param {number} [param.batchSize=10] The size of the batch (number of task to run simultaneously).
      */
     constructor({ batchSize = 10 } = {}) {
         this.batches = [[]];
@@ -64,7 +64,7 @@ export class AsyncBatch {
         return this;
     }
     /**
-     * Run all the tasks in batches.
+     * Run all tasks in batches.
      *
      * @returns {Promise<AsyncBatch<T>[][]>} Promise that resolves with all task results
      *                                       combined in sub-arrays (per batch).

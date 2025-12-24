@@ -40,8 +40,8 @@ export class AsyncBatch<T = any> {
   /**
    * Create a new container for async tasks.
    *
-   * @param {object?} param Configuration of the task container.
-   * @param {number} param.batchSize The size of the batch (number of task to run simultaneously).
+   * @param {object?} [param={}] Configuration of the task container.
+   * @param {number} [param.batchSize=10] The size of the batch (number of task to run simultaneously).
    */
   constructor({ batchSize = 10 }: { batchSize?: number } = {}) {
     if (batchSize <= 0) throw new RangeError("The `batchSize` value must be positive integer")
@@ -92,7 +92,7 @@ export class AsyncBatch<T = any> {
 
 
   /**
-   * Run all the tasks in batches.
+   * Run all tasks in batches.
    *
    * @returns {Promise<AsyncBatch<T>[][]>} Promise that resolves with all task results
    *                                       combined in sub-arrays (per batch).
