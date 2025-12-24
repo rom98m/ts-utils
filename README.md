@@ -37,7 +37,7 @@ Wraps given argument in array if needed.
  * @returns {T[]}
  */
 ```
-```
+```ts
 asArray(5)        // => [5]
 asArray([5])      // => [5] // left as is
 ```
@@ -52,7 +52,7 @@ Returns the last element of given array.
  * @returns {T} Last element or undefined (in case of empty array).
  */
 ```
-```
+```ts
 last([1, 2, 3])     // => 3
 last("fdsa")        // => "a"
 ```
@@ -69,7 +69,7 @@ Split the array into partitions of given size.
  * @returns {T[][]}
  */
 ```
-```
+```ts
 partition([1, 2, 3, 4, 5], 2)       // => [[1, 2],  [3, 4],  [5]]
 ```
 
@@ -89,7 +89,7 @@ Splits the array into 2 buckets:
  * @returns {[T[], T[]]}
  */
 ```
-```
+```ts
 partitionBy([1, 2, 4, 5, 5], n => n % 2 === 0)      // => [[2, 4],  [1, 3, 5]]
 ```
 
@@ -126,7 +126,7 @@ Creates a new container for async tasks.
  *                                      (number of task to run simultaneously).
  */
 ```
-```
+```ts
 const batch = new AsyncBatch({ batchSize: 5 })
 const batch = new AsyncBatch()
 ```
@@ -159,7 +159,7 @@ Add given tasks to the container.
  * @throws When trying to add the task to a running or finished batch.
  */
 ```
-```
+```ts
 batch
   .add(() => fetch(/* ... */))
   .add(() => fetch(/* ... */))
@@ -179,7 +179,7 @@ Run all tasks in batches.
  * @throws When trying to run the batch for the 2nd time.
  */
 ```
-```
+```ts
 batch
   .run()
   .then(res => {
@@ -219,7 +219,7 @@ Returns random int from the interval `[min(from, to) .. max(from, to))`.
  * @returns {number}
  */
 ```
-```
+```ts
 random(-5, 5)
 random(5, -5)       // order does not matter
 random(5)           // equal to `random(0, 5)`
@@ -235,7 +235,7 @@ Picks a random value from given array. Works against string as well, picking ran
  * @returns {T | string}
  */
 ```
-```
+```ts
 pickRandom([1, 2, 3, 4, 5])         // => some number
 pickRandom("ACBDEF")                // => some char
 ```
@@ -250,7 +250,7 @@ Return `true` with given % of probability.
  * @returns {boolean}
  */
 ```
-```
+```ts
 if (withProbability(25)) turn(withProbability(50) ? "left" : "right")
 moveForward()
 ```
@@ -268,7 +268,7 @@ Generates random string of given length.
  * @returns {string}
  */
 ```
-```
+```ts
 randomString(5)
 randomString(10, dictionary.englishLower + dictionary.englishUpper + dictionary.numbers)
 ```
@@ -295,7 +295,7 @@ Returns a Promise which resolves after given time.
  * @returns {Promise<void>}
  */
 ```
-```
+```ts
 wait(100).then(() => console.log("After 100ms"))
 ```
 
@@ -322,7 +322,7 @@ Think of eliminating "noisy" calls:
  * @returns {(...args: any[]) => void} Debounced function.
  */
 ```
-```
+```ts
 const debouncedSend((input) => {
   fetch({ url: "/api/...", method: "POST", data: { input } })
     .then(res => /* ... */)
@@ -344,7 +344,7 @@ Return an iterable that runs given number of times.
  * @returns {Generator<number> & { do((val: number) => void): void }}
  */
 ```
-```
+```ts
 for (const x of times(5)) {
   // Do something
 }
