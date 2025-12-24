@@ -15,4 +15,3 @@ export function* times(n: number): Iterable<number> {
     yield i
   }
 }
-
