@@ -54,7 +54,7 @@ export declare class AsyncBatch<T = any> {
     /**
      * Run all tasks in batches.
      *
-     * @returns {Promise<AsyncBatch<T>[][]>} Promise that resolves with all task results
+     * @returns {Promise<AsyncResult<T>[][]>} Promise that resolves with all task results
      *                                       combined in sub-arrays (per batch).
      * @throws When trying to run the batch for the 2nd time.
      */
