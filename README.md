@@ -28,7 +28,7 @@ batch
 
 ## Array utils
 
-**`asArray(maybeArray: T | T[]) => T[]`**
+### `asArray(maybeArray: T | T[]) => T[]`
 
 Wraps given argument in array if needed.
 ```ts
@@ -43,7 +43,7 @@ asArray([5])      // => [5] // left as is
 ```
 
 
-**`last<T>(array: T[]) => T`**
+### `last<T>(array: T[]) => T`
 
 Returns the last element of given array.
 ```ts
@@ -58,7 +58,7 @@ last("fdsa")        // => "a"
 ```
 
 
-**`partition<T>(array: T[], partitionSize: number): T[][]`**
+### `partition<T>(array: T[], partitionSize: number): T[][]`
 
 
 Split the array into partitions of given size.
@@ -74,7 +74,7 @@ partition([1, 2, 3, 4, 5], 2)       // => [[1, 2],  [3, 4],  [5]]
 ```
 
 
-**`partitionBy<T>(array: T[], predicate: (item: T, index: number, arr: T[]) => boolean): [T[], T[]]`**
+### `partitionBy<T>(array: T[], predicate: (item: T, index: number, arr: T[]) => boolean): [T[], T[]]`
 
 Splits the array into 2 buckets:
 - Left bucket contains all elements where the `predicate()` returned `true`;
@@ -84,7 +84,8 @@ Splits the array into 2 buckets:
 /**
  * @param {T[]} array Given array.
  * @param {(item: T, index: number, arr: T[]) => boolean} predicate A method that is applied to each element.
- *                                                                  If returns true, the element appears in the left bucket, otherwise in the right one.
+ *                                                                  If returns true, the element appears in the left bucket,
+ *                                                                  otherwise in the right one.
  * @returns {[T[], T[]]}
  */
 ```
@@ -95,7 +96,7 @@ partitionBy([1, 2, 4, 5, 5], n => n % 2 === 0)      // => [[2, 4],  [1, 3, 5]]
 
 ## Async utils
 
-**`class AsyncBatch<T = any>`**
+### `class AsyncBatch<T = any>`
 
 A container for async tasks that should be run in batches.
 For instance, 1000 requests to a remote server:
@@ -115,13 +116,14 @@ parallel(25_requests)
 
 ### Constructor
 
-**`new AsyncBatch({ batchSize = 10 })`**
+#### `new AsyncBatch({ batchSize = 10 })`
 
 Creates a new container for async tasks.
 ```ts
 /**
  * @param {object?} [param={}] Configuration of the task container.
- * @param {number} [param.batchSize=10] The size of the batch (number of task to run simultaneously).
+ * @param {number} [param.batchSize=10] The size of the batch
+ *                                      (number of task to run simultaneously).
  */
 ```
 ```
@@ -132,13 +134,14 @@ const batch = new AsyncBatch()
 
 ### Instance fileds and methods
 
-Status flags (readonly):
+#### Status flags (readonly):
 - **`.isRunning: boolean`**
 - **`.isFinished: boolean`**
 - **`.totalTasks: number`** returns the total number of tasks added
 
-**`.results: AsyncResult<T>[][]`** (readonly)
-Keeps the refetence to the array of results.
+#### `.results: AsyncResult<T>[][]`
+Readonly. \
+Keeps the refetence to the array of results. \
 Useful when results are referenced outside the `.run().then(res => {/* ... */})`.
 
 > ⚠️ **Watch out!** \
@@ -146,7 +149,7 @@ Useful when results are referenced outside the `.run().then(res => {/* ... */})`
 > Make sure to reference the `.results` _after_ the `.run()` is finished.
 
 
-**`.add(...tasks: Array<() => Promise<T>>)`**
+#### `.add(...tasks: Array<() => Promise<T>>)`
 
 Add given tasks to the container.
 ```ts
@@ -166,7 +169,7 @@ batch.add(...tasks)
 ```
 
 
-**`run(): Promise<AsyncResult<T>[][]>`**
+#### `run(): Promise<AsyncResult<T>[][]>`
 
 Run all tasks in batches.
 ```ts
@@ -190,12 +193,11 @@ batch
 
 
 ### Auxiliary types
+
 ```ts
 /**
  * A wrapper for the result of an async task.
  */
-```
-```
 type AsyncResult<T> = {
   error: undefined | string | object
   result: T
@@ -207,7 +209,7 @@ type AsyncResult<T> = {
 
 ## Math/Random utils
 
-**`random(from: number, to?: number): number`**
+### `random(from: number, to?: number): number`
 
 Returns random int from the interval `[min(from, to) .. max(from, to))`.
 ```ts
@@ -224,7 +226,7 @@ random(5)           // equal to `random(0, 5)`
 ```
 
 
-**`pickRandom<T>(array: T[] | string): typeof array extends T[] ? T : string`**
+### `pickRandom<T>(array: T[] | string): typeof array extends T[] ? T : string`
 
 Picks a random value from given array. Works against string as well, picking random character.
 ```ts
@@ -239,7 +241,7 @@ pickRandom("ACBDEF")                // => some char
 ```
 
 
-**`withProbability(probability: number): boolean`**
+### `withProbability(probability: number): boolean`
 
 Return `true` with given % of probability.
 ```ts
@@ -255,7 +257,7 @@ moveForward()
 
 
 
-**`randomString(length: number, chars = dictionary.englishLower): string`**
+### `randomString(length: number, chars = dictionary.englishLower): string`
 
 Generates random string of given length.
 ```ts
@@ -284,7 +286,7 @@ export const dictionary = {
 
 ## Time utils
 
-**`wait(ms: number): Promise<void>`**
+### `wait(ms: number): Promise<void>`
 
 Returns a Promise which resolves after given time.
 ```ts
@@ -297,7 +299,8 @@ Returns a Promise which resolves after given time.
 wait(100).then(() => console.log("After 100ms"))
 ```
 
-**`debounce(fn: (...args: any[]) => void, intervalMs: number): typeof fn`**
+
+### `debounce(fn: (...args: any[]) => void, intervalMs: number): typeof fn`
 
 Ensures that given function is invoked not too often.
 Think of eliminating "noisy" calls:
@@ -320,8 +323,6 @@ Think of eliminating "noisy" calls:
  */
 ```
 ```
-```
-```
 const debouncedSend((input) => {
   fetch({ url: "/api/...", method: "POST", data: { input } })
     .then(res => /* ... */)
@@ -334,7 +335,7 @@ const debouncedSend((input) => {
 
 ## Various/Unsorted utils
 
-**`*times(n: number): Iterable<number>`**
+### `*times(n: number): Iterable<number>`
 
 Return an iterable that runs given number of times.
 ```ts
