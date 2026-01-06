@@ -99,7 +99,7 @@ partitionBy([1, 2, 4, 5, 5], n => n % 2 === 0)      // => [[2, 4],  [1, 3, 5]]
 ### `class AsyncBatch<T = any>`
 
 A container for async tasks that should be run in batches.
-For instance, 1000 requests to a remote server:
+For instance, there are 1000 requests to a remote server:
 - running them sequentially is too slow;
 - running them all at once can overwhelm/DoS the server.
 
@@ -164,7 +164,9 @@ batch
   .add(() => fetch(/* ... */))
   .add(() => fetch(/* ... */))
 
-const tasks = postIds.map(id => fetch(`https://some.site/post?id=${id}`))
+const tasks = postIds
+  .map(id => () => fetch(`https://some.site/post?id=${id}`))
+  //         ^^^^^ the function is returned!
 batch.add(...tasks)
 ```
 

@@ -1,6 +1,6 @@
 {
   "name": "@rom98m/utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Various TS utils",
   "type": "module",
   "main": "dist/index.js",
@@ -32,7 +32,7 @@
   },
   "bugs": {
     "url": "https://github.com/rom98m/ts-utils/issues",
-    "email": "email.rom.melnyk@gmail.com"
+    "email": "rom98m@gmail.com"
   },
   "license": "UNLICENSED",
   "devDependencies": {
