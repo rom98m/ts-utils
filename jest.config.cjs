@@ -10,7 +10,7 @@ module.exports = {
     // The `tests/**/*.mts` use "real life imports":
     // > import { ... } from "@rom98m/utils"
     // It should be remapped to compiled files
-    "^@rom98m/utils$": "<rootDir>/dist/index.js",
-    "^/$": "<rootDir>/dist/index.js",
+    "^@rom98m/utils$": "<rootDir>/dist/esm/index.js",
+    "^/$": "<rootDir>/dist/esm/index.js",
   }
 };

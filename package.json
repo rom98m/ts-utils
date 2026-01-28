@@ -1,19 +1,28 @@
 {
   "name": "@rom98m/utils",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Various TS utils",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
     }
   },
   "files": ["dist"],
   "scripts": {
-    "build": "rm -fr dist && tsc",
+    "build": "rm -rf dist && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
     "test": "npm run build && jest --clearCache && node --experimental-vm-modules node_modules/.bin/jest",
     "test:win": "echo \"Use same command as for \\`npm test\\` but adjust extension of the \\`n_m/.bin/jest\\`: either \\`.cmd\\` or \\`.ps1\\`\""
   },

@@ -10,7 +10,7 @@ npm install --save @rom98m/utils
 
 ## Usage
 
-The utils are shipped as ESM files:
+The utils support both ESM and CommonJS (with `"module": "CommonJS"` in the `tsconfig.json`):
 
 ```ts
 import { AsyncBatch } from "@rom98m/utils"
