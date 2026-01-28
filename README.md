@@ -10,10 +10,12 @@ npm install --save @rom98m/utils
 
 ## Usage
 
-The utils support both ESM and CommonJS (with `"module": "CommonJS"` in the `tsconfig.json`):
+The utils support both ESM and CommonJS:
 
 ```ts
 import { AsyncBatch } from "@rom98m/utils"
+// --- or ---
+// const { AssertBatch } = require("@rom98m/utils")
 
 const batch = new AsyncBatch({ batchSize: 10 })
 for (let i = 0; i <= 1e4; i++) {
