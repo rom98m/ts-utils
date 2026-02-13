@@ -1,4 +1,4 @@
-import { describe, test, expect, jest } from "@jest/globals";
+import { describe, test, expect, jest } from "@jest/globals"
 import { times } from "@rom98m/utils"
 
 describe("various-utils", () => {
