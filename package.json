@@ -1,6 +1,6 @@
 {
   "name": "@rom98m/utils",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Various TS utils",
   "type": "module",
   "main": "./dist/cjs/index.js",
