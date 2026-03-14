@@ -8,11 +8,18 @@
 export declare function random(from: number, to?: number): number;
 /**
  * Picks a random value from given array. Works against string as well, picking random character.
- *
- * @param {T[] | string} arrayLike
- * @returns {T | string}
- */
-export declare function pickRandom<T>(arrayLike: T[] | string): typeof arrayLike extends T[] ? T : string;
+*
+* @param {T[] | string} arrayLike
+* @returns {T | string}
+*/
+export declare function pickRandom<T>(arrayLike: T[]): T;
+/**
+ * Picks a random value from given array. Works against string as well, picking random character.
+*
+* @param {T[] | string} arrayLike
+* @returns {T | string}
+*/
+export declare function pickRandom(arrayLike: string): string;
 /**
  * Return `true` with given % of probability.
  *

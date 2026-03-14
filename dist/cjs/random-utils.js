@@ -20,12 +20,6 @@ function random(from, to) {
     [from, to] = [Math.min(from, to), Math.max(from, to)];
     return Math.floor(Math.random() * (to - from)) + from;
 }
-/**
- * Picks a random value from given array. Works against string as well, picking random character.
- *
- * @param {T[] | string} arrayLike
- * @returns {T | string}
- */
 function pickRandom(arrayLike) {
     return arrayLike[random(arrayLike.length)];
 }
